@@ -1,0 +1,19 @@
+# Datos — demasiado pesados para GitHub
+data/
+
+# Archivos temporales de descarga
+/tmp/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Spark logs
+spark-warehouse/
+derby.log
+metastore_db/

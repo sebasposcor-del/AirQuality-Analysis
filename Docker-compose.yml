@@ -1,0 +1,11 @@
+services:
+  etl:
+    build: .
+    container_name: airquality_etl
+    volumes:
+      - ./etl:/app/etl          # scripts Python
+      - ./data:/app/data        # parquet de salida (carpeta local)
+    environment:
+      - PYTHONUNBUFFERED=1      # para ver los print() en tiempo real
+    working_dir: /app
+    command: python etl/measurements_etl.py
