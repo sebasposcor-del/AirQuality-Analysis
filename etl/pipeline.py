@@ -46,18 +46,17 @@ class ETLPipeline:
 
         os.makedirs(self.output_dir, exist_ok=True)
 
-        # --------------------------------------------------
+    
         # Paso 1: Países
-        # --------------------------------------------------
+
         print("\n" + "─" * 40)
         print("PASO 1/5 — Extracción de países")
         print("─" * 40)
         countries_extractor = CountriesExtractor(self.output_dir)
         df_paises = countries_extractor.run()
 
-        # --------------------------------------------------
         # Paso 2: Locations
-        # --------------------------------------------------
+        
         print("\n" + "─" * 40)
         print("PASO 2/5 — Extracción de locations")
         print("─" * 40)
@@ -67,9 +66,9 @@ class ETLPipeline:
         )
         df_locations = locations_extractor.run()
 
-        # --------------------------------------------------
+
         # Paso 3: Sensores
-        # --------------------------------------------------
+
         print("\n" + "─" * 40)
         print("PASO 3/5 — Extracción de sensores")
         print("─" * 40)
@@ -79,9 +78,8 @@ class ETLPipeline:
         )
         df_sensores = sensors_extractor.run()
 
-        # --------------------------------------------------
+
         # Paso 4: Measurements (S3 → Spark → Parquet)
-        # --------------------------------------------------
         print("\n" + "─" * 40)
         print("PASO 4/5 — Extracción de measurements")
         print("─" * 40)
@@ -99,18 +97,16 @@ class ETLPipeline:
         )
         measurements_extractor.run()
 
-        # --------------------------------------------------
+        
         # Paso 5: Enriquecimiento
-        # --------------------------------------------------
         print("\n" + "─" * 40)
         print("PASO 5/5 — Enriquecimiento (joins)")
         print("─" * 40)
         enricher = MeasurementsEnricher(spark=spark, output_dir=self.output_dir)
         enricher.run()
 
-        # --------------------------------------------------
+    
         # Resumen final
-        # --------------------------------------------------
         self.spark_manager.stop()
 
         duracion = datetime.now() - inicio

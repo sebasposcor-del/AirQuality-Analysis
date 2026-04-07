@@ -24,6 +24,7 @@ class SparkManager:
         manager.stop()
     """
 
+#_spark es para privacidad, para usar solo a través de get_session() y stop()
     def __init__(self):
         self._spark = None
 

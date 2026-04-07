@@ -48,9 +48,8 @@ from etl.config import (
 )
 
 
-# ============================================================
+
 # 1. Países
-# ============================================================
 class CountriesExtractor:
     """
     Descarga todos los países de OpenAQ y filtra los europeos
@@ -99,9 +98,7 @@ class CountriesExtractor:
         return self.extract().save()
 
 
-# ============================================================
 # 2. Locations (estaciones de monitoreo)
-# ============================================================
 class LocationsExtractor:
     """
     Descarga todas las estaciones europeas, paginando por país.
@@ -185,9 +182,7 @@ class LocationsExtractor:
         return self.extract().save()
 
 
-# ============================================================
 # 3. Sensores
-# ============================================================
 class SensorsExtractor:
     """
     Extrae sensores desde los datos crudos de locations,
@@ -225,9 +220,8 @@ class SensorsExtractor:
         return df
 
 
-# ============================================================
+
 # 4. Measurements (fact table)
-# ============================================================
 class MeasurementsExtractor:
     """
     Descarga mediciones del año indicado desde el bucket S3 público de OpenAQ.
@@ -268,9 +262,8 @@ class MeasurementsExtractor:
             f"{m:02d}": [] for m in range(1, 13)
         }
 
-    # --------------------------------------------------------
+
     # Paso 1: Verificar paths en S3 con boto3
-    # --------------------------------------------------------
     def verify_s3_paths(self) -> "MeasurementsExtractor":
         """
         Para cada location_id, consulta S3 una sola vez (todo el año)
@@ -312,9 +305,8 @@ class MeasurementsExtractor:
 
         return self
 
-    # --------------------------------------------------------
+
     # Paso 2: Leer desde S3 con Spark, transformar y guardar
-    # --------------------------------------------------------
     def process_month(self, mes: str) -> int:
         """
         Lee los CSV.GZ de un mes desde S3, aplica transformaciones
@@ -373,9 +365,8 @@ class MeasurementsExtractor:
         self.verify_s3_paths()
         self.process_all_months()
 
-    # --------------------------------------------------------
+
     # Transformaciones
-    # --------------------------------------------------------
     @staticmethod
     def _transform(df):
         """
