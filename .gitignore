@@ -1,9 +1,6 @@
 # Datos — demasiado pesados para GitHub
 data/
 
-# Archivos temporales de descarga
-/tmp/
-
 # Python
 __pycache__/
 *.pyc
@@ -17,3 +14,6 @@ __pycache__/
 spark-warehouse/
 derby.log
 metastore_db/
+
+# Archivos temporales
+/tmp/

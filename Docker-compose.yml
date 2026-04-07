@@ -3,11 +3,10 @@ services:
     build: .
     container_name: airquality_etl
     volumes:
-      - ./etl:/app/etl
-      - ./data:/app/data
+      - ./etl:/app/etl          # Código fuente (editable en vivo)
+      - ./main.py:/app/main.py  # Entry point
+      - ./data:/app/data        # Parquets persistidos en tu máquina
     environment:
       - PYTHONUNBUFFERED=1
     working_dir: /app
-    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root
-    ports:
-      - "8888:8888"
+    command: python main.py
