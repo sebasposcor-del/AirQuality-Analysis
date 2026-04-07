@@ -1,5 +1,5 @@
 """
-spark_manager.py — Gestión centralizada de la SparkSession.
+spark_manager.py para gestión centralizada de la SparkSession.
 
 Crea, configura y cierra la sesión de Spark con los parámetros
 necesarios para leer S3 con acceso anónimo.
